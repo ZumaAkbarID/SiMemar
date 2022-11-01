@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\Login as AuthLogin;
+use App\Http\Controllers\Auth\Register as AuthRegister;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Profile.public');
+});
+
+Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
+    // Force Redirect
+    Route::get('', function () {
+        return redirect(route('Auth_login'));
+    });
+
+    // Register
+    Route::get('register', [AuthRegister::class, 'form'])->name('Auth_register');
+    Route::post('register', [AuthRegister::class, 'process']);
+
+    // Login
+    Route::get('login', [AuthLogin::class, 'form'])->name('Auth_login');
+    Route::post('login', [AuthLogin::class, 'process']);
 });
