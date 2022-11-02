@@ -7495,6 +7495,13 @@
   :root {
     scroll-behavior: smooth; } }
 
+    .dynatable-sort-header {
+      text-decoration: none !important;
+    }
+
+    .dynatable-page-link {
+      text-decoration: none !important;
+    }
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -19896,6 +19903,10 @@ div.tagsinput {
 /* Auth */
 .p_input:focus {
   color: #fff !important;
+}
+.p_input_disabled {
+  color: #fff !important;
+  background-color: #000 !important;
 }
 .auth.login-bg {
   background: rgba(0, 0, 0, 0.2);

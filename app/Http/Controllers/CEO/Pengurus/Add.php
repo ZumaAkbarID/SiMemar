@@ -1,31 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\CEO\Pengurus;
 
 use App\Http\Controllers\Controller;
-use App\Models\SiMemarConfig;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class Register extends Controller
+class Add extends Controller
 {
-    public function __construct()
-    {
-        $this->SiMemar = SiMemarConfig::first();
-    }
-
-    public function form()
-    {
-        return view('Auth.register', [
-            'title' => 'Daftar | ' . $this->SiMemar->app_name,
-            'SiMemarConfig' => $this->SiMemar,
-        ]);
-    }
-
-    public function process(Request $request)
+    public function add(Request $request)
     {
         $this->validate(
             $request,
@@ -34,7 +21,7 @@ class Register extends Controller
                 'email' => 'required|unique:users,email|email:dns,rfc',
                 'phone_number' => 'required|unique:users,phone_number|numeric|min:8',
                 'address' => 'required|min:8',
-                'password' => 'required|confirmed|min:8',
+                'password' => 'required|min:8',
                 'profile_img' => 'required|image|mimes:png|max:1024|dimensions:ratio=1/1'
             ],
             [
@@ -49,7 +36,6 @@ class Register extends Controller
                 'address.required' => 'Alamat dibutuhkan',
                 'address.min' => 'Alamat minimal 8 karakter',
                 'password.required' => 'Password dibutuhkan',
-                'password.confirmed' => 'Password tidak sama',
                 'password.min' => 'Password minimal 8 karakter',
                 'profile_img.required' => 'Foto profil dibutuhkan',
                 'profile_img.image' => 'Foto profil harus berformat png',
@@ -65,12 +51,17 @@ class Register extends Controller
             'phone_number' => $request->phone_number,
             'address' => $request->phone_number,
             'position' => $request->position,
+            'contract_start' => $request->contract_start,
+            'contract_end' => $request->contract_end,
+            'account_verified_at' => now(),
+            'email_verified_at' => now(),
+            'account_verified_by' => Auth::user()->id,
             'skill' => $request->skill,
-            'role' => 'Member',
-            'status' => 'Pending'
+            'role' => 'Pengurus',
+            'status' => $request->status
         ];
 
-        $data['profile_img'] = $request->file('profile_img')->storeAs('profile/image', Str::slug($request->name) . '-' . time() . '.png');
+        $data['profile_img'] = $request->file('profile_img')->storeAs('profile/image', 'Pengurus-' . ucwords(Str::slug($request->name)) . '-' . time() . '.png');
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -84,7 +75,7 @@ class Register extends Controller
         $data['password'] = Hash::make($request->password);
 
         if (User::create($data)) {
-            return redirect()->back()->with('success', 'Akun berhasil dibuat, Anda akan mendapatkan email apabila pengurus menerima pendaftaran Anda');
+            return redirect()->back()->with('success', 'Akun berhasil dibuat');
         } else {
             if (Storage::exists($data['profile_img'])) {
                 Storage::delete($data['profile_img']);

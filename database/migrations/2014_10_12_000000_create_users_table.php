@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('account_verified_by')->nullable();
             $table->string('profile_img')->nullable();
             $table->enum('role', ['CEO', 'Pengurus', 'Member']);
-            $table->enum('status', ['Aktif', 'Non Aktif']);
+            $table->enum('status', ['Aktif', 'Non Aktif', 'Pending', 'Ditolak']);
             $table->string('acc_code');
             $table->string('password');
             $table->rememberToken();

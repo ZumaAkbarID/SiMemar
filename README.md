@@ -44,7 +44,7 @@ Sesuaikan pengaturan & koneksi database Anda.
 Migrate database.
 
 ```bash
-php artisan migrate
+php artisan migrate --seed
 ```
 
 Aplikasi SiMemar siap dijalankan

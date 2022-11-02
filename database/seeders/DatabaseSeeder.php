@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Rahmat Wahyuma Akbar',
             'email' => 'admin@rahmatwahyumaakbar.com',
-            'phone_number' => '081225389903',
+            'phone_number' => '081234567890',
             'address' => 'Jl. PLTU Tanjung Jati B, Desa Kaliaman Rt 01 Rw 02',
             'position' => 'CEO & Backend Web Developer',
             'skill' => 'PHP,Laravel,JS,C++',
@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'account_verified_at' => 1667214176,
             'account_verified_by' => 0,
             'email_verified_at' => now(),
+            'profile_img' => 'profile/image/zuma.png',
             'remember_token' => null,
             'role' => 'CEO',
             'status' => 'Aktif',

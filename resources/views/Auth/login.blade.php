@@ -14,7 +14,7 @@
     <!-- End layout styles -->
 @endsection
 
-@section('SiMemar_content')
+@section('SiMemar_auth_content')
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="row w-100 m-0">
@@ -58,18 +58,8 @@
 
 @section('SiMemar_js')
     <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="{{ asset('/storage') }}/SiMemar/assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="{{ asset('/storage') }}/SiMemar/assets/js/off-canvas.js"></script>
-    <script src="{{ asset('/storage') }}/SiMemar/assets/js/hoverable-collapse.js"></script>
-    <script src="{{ asset('/storage') }}/SiMemar/assets/js/misc.js"></script>
-    <script src="{{ asset('/storage') }}/SiMemar/assets/js/settings.js"></script>
-    <script src="{{ asset('/storage') }}/SiMemar/assets/js/todolist.js"></script>
-    <!-- endinject -->
     <script>
         $(document).ready(function() {
             $('#password').on('change', function() {

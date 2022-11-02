@@ -14,7 +14,7 @@
     <!-- End layout styles -->
 @endsection
 
-@section('SiMemar_content')
+@section('SiMemar_auth_content')
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="row w-100 m-0">

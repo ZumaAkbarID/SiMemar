@@ -40,13 +40,13 @@ class Login extends Controller
             if (Auth::attempt(['email' => $request->auth, 'password' => $request->password, 'status' => 'Aktif'])) {
                 return redirect()->intended(route('Dashboard_index'));
             } else {
-                return redirect()->back()->withInput()->with('error', 'Akun tidak ditemukan');
+                return redirect()->back()->withInput()->with('error', 'Akun tidak ditemukan atau belum aktif');
             }
         } else {
             if (Auth::attempt(['phone_number' => $request->auth, 'password' => $request->password, 'status' => 'Aktif'])) {
                 return redirect()->intended(route('Dashboard_index'));
             } else {
-                return redirect()->back()->withInput()->with('error', 'Akun tidak ditemukan');
+                return redirect()->back()->withInput()->with('error', 'Akun tidak ditemukan atau belum aktif');
             }
         }
     }
