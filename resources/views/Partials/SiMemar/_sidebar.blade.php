@@ -10,8 +10,13 @@
             <div class="profile-desc">
                 <div class="profile-pic">
                     <div class="count-indicator">
-                        <img class="img-xs rounded-circle "
-                            src="{{ asset('/storage') }}/SiMemar/assets/images/faces/face15.jpg" alt="">
+                        @if (is_null(Auth::user()->profile_img))
+                            <img class="img-xs rounded-circle " src="{{ asset('/storage') }}/default/avatar.png"
+                                alt="{{ Auth::user()->name }}">
+                        @else
+                            <img class="img-xs rounded-circle "
+                                src="{{ asset('/storage') }}/{{ Auth::user()->profile_img }}" alt="">
+                        @endif
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">
@@ -68,8 +73,8 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="{{ route('Dashboard_index') }}">
+            <li class="nav-item menu-items @if (Request::segment(2) == 'simemar') active @endif">
+                <a class="nav-link" href="{{ route('SiMemar_config') }}">
                     <span class="menu-icon">
                         <i class="mdi mdi-settings"></i>
                     </span>

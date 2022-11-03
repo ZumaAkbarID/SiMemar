@@ -15,8 +15,13 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
                     <div class="navbar-profile">
-                        <img class="img-xs rounded-circle"
-                            src="{{ asset('/storage') }}/SiMemar/assets/images/faces/face15.jpg" alt="">
+                        @if (is_null(Auth::user()->profile_img))
+                            <img class="img-xs rounded-circle " src="{{ asset('/storage') }}/default/avatar.png"
+                                alt="{{ Auth::user()->name }}">
+                        @else
+                            <img class="img-xs rounded-circle "
+                                src="{{ asset('/storage') }}/{{ Auth::user()->profile_img }}" alt="">
+                        @endif
                         <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ Auth::user()->name }}</p>
                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                     </div>

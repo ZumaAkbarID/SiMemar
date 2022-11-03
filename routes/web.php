@@ -11,6 +11,7 @@ use App\Http\Controllers\CEO\Member\View as CEOMemberView;
 use App\Http\Controllers\CEO\Member\Edit as CEOMemberEdit;
 use App\Http\Controllers\CEO\Member\Delete as CEOMemberDelete;
 use App\Http\Controllers\Dashboard\Dashboard;
+use App\Http\Controllers\SiMemar\Config as SiMemarConfig;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('confirm-delete', [CEOMemberDelete::class, 'confirm'])->name('CEO_member_delete_confirm');
         });
 
-        Route::group(['prefix' => 'pengaturan-website'])
+        Route::group(['prefix' => 'simemar'], function () {
+            Route::get('settings', [SiMemarConfig::class, 'form'])->name('SiMemar_config');
+            Route::post('settings', [SiMemarConfig::class, 'update']);
+        });
     });
 });

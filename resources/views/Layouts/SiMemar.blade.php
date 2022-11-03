@@ -6,7 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="{{ $SiMemarConfig->favicon }}" type="image/x-icon">
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="{{ $title }}">
+    <meta name="description" content="{{ $SiMemarConfig->meta_desc }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('') }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $SiMemarConfig->meta_desc }}">
+    @if (!is_null($SiMemarConfig->meta_img))
+        <meta property="og:image" content="{{ asset('/storage') }}/{{ $SiMemarConfig->meta_img }}">
+    @endif
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('') }}">
+    <meta property="twitter:title" content="{{ $title }}">
+    <meta property="twitter:description" content="{{ $SiMemarConfig->meta_desc }}">
+    @if (!is_null($SiMemarConfig->meta_img))
+        <meta property="twitter:image" content="{{ asset('/storage') }}/{{ $SiMemarConfig->meta_img }}">
+    @endif
+
+    <link rel="shortcut icon" href="{{ asset('/storage') }}/{{ $SiMemarConfig->favicon }}" type="image/x-icon">
 
     <title>{{ $title }}</title>
 

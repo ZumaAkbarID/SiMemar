@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('app_name')->default('SiMemar');
             $table->string('favicon')->default('/storage/default/favicon.ico');
+            $table->string('meta_desc')->default('Star this open source project on https://github.com/ZumaAkbarID');
+            $table->string('meta_img')->nullable();
             $table->string('card_front_img')->nullable();
             $table->string('card_back_img')->nullable();
             $table->timestamps();

@@ -43,6 +43,8 @@ class DatabaseSeeder extends Seeder
         SiMemarConfig::factory()->create([
             'app_name' => 'SiMemar',
             'favicon' => '/storage/default/favicon.ico',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }
