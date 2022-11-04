@@ -44,7 +44,7 @@
             </div>
             <div class="col-12 col-lg-6 mt-4">
                 <div class="card">
-                    <div class="card-title pt-4 px-4">Pengaturan Image</div>
+                    <div class="card-title pt-4 px-4">Pengaturan Gambar</div>
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
                             @csrf

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Account\CV;
+use App\Http\Controllers\Account\Settings as AccountSettings;
 use App\Http\Controllers\Auth\Login as AuthLogin;
 use App\Http\Controllers\Auth\Logout as AuthLogout;
 use App\Http\Controllers\Auth\Register as AuthRegister;
@@ -13,6 +15,7 @@ use App\Http\Controllers\CEO\Member\Delete as CEOMemberDelete;
 use App\Http\Controllers\Dashboard\Dashboard;
 use App\Http\Controllers\SiMemar\Config as SiMemarConfig;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +54,19 @@ Route::group(['middleware' => 'auth'], function () {
     // Dashboard
     Route::get('/', [Dashboard::class, 'dashboard'])->name('Dashboard_index');
 
-    // Admin
+    // Pengaturan Akun semua role
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('settings', [AccountSettings::class, 'form'])->name('Account_settings');
+        Route::post('settings', [AccountSettings::class, 'process']);
+
+        // CV
+        Route::get('cv', [CV::class, 'form'])->name('Account_cv');
+        Route::post('cv', [CV::class, 'process']);
+        // Download CV
+        Route::get('cv/download/{acc_code}', [CV::class, 'download'])->name('Account_cv_download');
+    });
+
+    // CEO
     Route::group(['prefix' => 'ceo', 'middleware' => 'isCEO'], function () {
         // Kelola Pengurus
         Route::group(['prefix' => 'pengurus'], function () {

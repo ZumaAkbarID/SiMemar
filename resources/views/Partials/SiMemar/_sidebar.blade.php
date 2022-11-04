@@ -46,6 +46,14 @@
                 <span class="menu-title">Kartu Anggota</span>
             </a>
         </li>
+        <li class="nav-item menu-items @if (Request::segment(2) == 'cv') active @endif">
+            <a class="nav-link" href="{{ route('Account_cv') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-file-document"></i>
+                </span>
+                <span class="menu-title">Upload CV</span>
+            </a>
+        </li>
 
         @if (Auth::user()->role == 'CEO')
             <li class="nav-item nav-category">
@@ -106,20 +114,6 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-        @endif
-
-        @if (Auth::user()->role == 'Member')
-            <li class="nav-item nav-category">
-                <span class="nav-link">Menu Member</span>
-            </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="{{ route('Dashboard_index') }}">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-file-document"></i>
-                    </span>
-                    <span class="menu-title">Upload CV</span>
-                </a>
             </li>
         @endif
     </ul>
