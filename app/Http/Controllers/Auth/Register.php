@@ -63,7 +63,7 @@ class Register extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'address' => $request->phone_number,
+            'address' => $request->address,
             'position' => $request->position,
             'skill' => $request->skill,
             'role' => 'Member',
