@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Account\CV;
+use App\Http\Controllers\Account\Card as AccountCard;
+use App\Http\Controllers\Account\CV as AccountCV;
 use App\Http\Controllers\Account\Settings as AccountSettings;
 use App\Http\Controllers\Auth\Login as AuthLogin;
 use App\Http\Controllers\Auth\Logout as AuthLogout;
@@ -12,6 +13,9 @@ use App\Http\Controllers\CEO\Pengurus\Delete as CEOPengurusDelete;
 use App\Http\Controllers\CEO\Member\View as CEOMemberView;
 use App\Http\Controllers\CEO\Member\Edit as CEOMemberEdit;
 use App\Http\Controllers\CEO\Member\Delete as CEOMemberDelete;
+use App\Http\Controllers\Pengurus\Member\View as PengurusMemberView;
+use App\Http\Controllers\Pengurus\Member\Edit as PengurusMemberEdit;
+use App\Http\Controllers\Pengurus\Member\Delete as PengurusMemberDelete;
 use App\Http\Controllers\Dashboard\Dashboard;
 use App\Http\Controllers\SiMemar\Config as SiMemarConfig;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +32,8 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/cv/{acc_code}', function ($acc_code) {
-    return $acc_code;
-})->name('Qr_Scan');
+// Scan Barcode Everyone can do
+Route::get('/cv/{acc_code}', [AccountCV::class, 'single_view'])->name('Qr_Scan');
 
 Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
     // Force Redirect
@@ -60,10 +63,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('settings', [AccountSettings::class, 'process']);
 
         // CV
-        Route::get('cv', [CV::class, 'form'])->name('Account_cv');
-        Route::post('cv', [CV::class, 'process']);
+        Route::get('cv', [AccountCV::class, 'form'])->name('Account_cv');
+        Route::post('cv', [AccountCV::class, 'process']);
         // Download CV
-        Route::get('cv/download/{acc_code}', [CV::class, 'download'])->name('Account_cv_download');
+        Route::get('cv/download/{acc_code}', [AccountCV::class, 'download'])->name('Account_cv_download');
+
+        // Card
+        Route::get('card', [AccountCard::class, 'view'])->name('Account_card');
     });
 
     // CEO
@@ -96,6 +102,21 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'simemar'], function () {
             Route::get('settings', [SiMemarConfig::class, 'form'])->name('SiMemar_config');
             Route::post('settings', [SiMemarConfig::class, 'update']);
+        });
+    });
+
+    // Pengurus
+    Route::group(['prefix' => 'pengurus', 'middleware' => 'isPengurus'], function () {
+        // Kelola Member
+        Route::group(['prefix' => 'member'], function () {
+            Route::get('kelola', [PengurusMemberView::class, 'all'])->name('Pengurus_member_all');
+            Route::post('get-tb/{status}', [PengurusMemberView::class, 'table'])->name('Pengurus_member_get_table');
+            Route::post('get-counter/{status}', [PengurusMemberView::class, 'counter'])->name('Pengurus_member_get_counter');
+            Route::post('get-single', [PengurusMemberView::class, 'detail'])->name('Pengurus_member_detail');
+            Route::post('edit', [PengurusMemberEdit::class, 'form'])->name('Pengurus_member_edit_form');
+            Route::post('submit', [PengurusMemberEdit::class, 'update'])->name('Pengurus_member_edit_submit');
+            Route::post('data-delete', [PengurusMemberDelete::class, 'data'])->name('Pengurus_member_delete_ask');
+            Route::post('confirm-delete', [PengurusMemberDelete::class, 'confirm'])->name('Pengurus_member_delete_confirm');
         });
     });
 });

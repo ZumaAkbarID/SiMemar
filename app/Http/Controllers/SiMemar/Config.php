@@ -113,14 +113,14 @@ class Config extends Controller
                 $this->validate(
                     $request,
                     [
-                        'card_front_img' => 'required|image|mimes:png,jpg,svg|max:2048|dimensions:max_width=250,max_height=100'
+                        'card_front_img' => 'required|image|mimes:png,jpg,svg|max:2048|dimensions:max_width=250,max_height=140'
                     ],
                     [
                         'card_front_img.required' => 'Gambar Meta dibutuhkan',
                         'card_front_img.image' => 'Gambar Meta harus berupa gambar',
                         'card_front_img.mimes' => 'Gambar Meta hanya bisa ber-ekstensi png, jpg, svg',
                         'card_front_img.max' => 'Gambar Meta maksimal 2MB',
-                        'card_front_img.dimensions' => 'Gambar Meta maksimal memiliki ukuran 250 x 100',
+                        'card_front_img.dimensions' => 'Gambar Meta maksimal memiliki ukuran 250 x 140',
                     ]
                 );
                 $data = [];
@@ -141,14 +141,14 @@ class Config extends Controller
                 $this->validate(
                     $request,
                     [
-                        'card_back_img' => 'required|image|mimes:png,jpg,svg|max:2048|dimensions:max_width=250,max_height=350'
+                        'card_back_img' => 'required|image|mimes:png,jpg,svg|max:2048|dimensions:max_width=250,max_height=380'
                     ],
                     [
                         'card_back_img.required' => 'Gambar Meta dibutuhkan',
                         'card_back_img.image' => 'Gambar Meta harus berupa gambar',
                         'card_back_img.mimes' => 'Gambar Meta hanya bisa ber-ekstensi png, jpg, svg',
                         'card_back_img.max' => 'Gambar Meta maksimal 2MB',
-                        'card_back_img.dimensions' => 'Gambar Meta maksimal memiliki ukuran 250 x 350',
+                        'card_back_img.dimensions' => 'Gambar Meta maksimal memiliki ukuran 250 x 380',
                     ]
                 );
                 $data = [];

@@ -58,11 +58,17 @@
             <div class="col-sm-12 col-md-12 col-lg-6 mt-4">
                 <div class="card">
                     <div class="card-title pt-4 px-4">PDF Preview</div>
-                    <div class="text-small px-4">Url : {{ asset('/storage') }}/{{ $cv->cv_url }}</div>
+                    <div class="text-small px-4">
+                        @if ($cv)
+                            Url : {{ asset('/storage') }}/{{ $cv->cv_url }}
+                        @endif
+                    </div>
                     <div class="card-body">
-                        <iframe src="{{ asset('/storage') }}/{{ $cv->cv_url }}" frameborder="0" class="col-12"
-                            height="700">Browser
-                            Anda tidak support fitur pdf viewer</iframe>
+                        @if ($cv)
+                            <iframe src="{{ asset('/storage') }}/{{ $cv->cv_url }}" frameborder="0" class="col-12"
+                                height="700">Browser
+                                Anda tidak support fitur pdf viewer</iframe>
+                        @endif
                     </div>
                 </div>
             </div>

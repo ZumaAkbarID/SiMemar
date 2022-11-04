@@ -232,6 +232,86 @@
                 </div>
             </div>
         @endif
+
+        <div class="row">
+            <div class="col-xl-3 col-sm-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">QR Code CV Anda</div>
+                        <div class="row">
+                            {{ QrCode::size(300)->backgroundColor(255, 255, 255)->style('round')->eyeColor(0, 143, 95, 232, 0, 0, 0)->margin(2)->generate(route('Qr_Scan', Auth::user()->acc_code)) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Auth::user()->role == 'Pengurus')
+                <div class="col-xl-9 col-sm-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Pendaftaran Member Terbaru</div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th> Nama </th>
+                                            <th> Nomor HP </th>
+                                            <th> Email </th>
+                                            <th> Skill </th>
+                                            <th> Keinginan Jabatan </th>
+                                            <th> Tanggal Daftar </th>
+                                            <th> Status </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($latestRegister as $item)
+                                            <tr>
+                                                <td>
+                                                    <img src="{{ asset('/storage') }}/{{ $item->profile_img }}"
+                                                        alt="{{ $item->name }} - Foto Profil" />
+                                                    <span class="ps-2">{{ $item->name }}</span>
+                                                </td>
+                                                <td> {{ $item->phone_number }} </td>
+                                                <td> {{ $item->email }} </td>
+                                                <td>
+                                                    @if (is_null($item->skill))
+                                                        Kosong
+                                                    @else
+                                                        {{ $item->skill }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if (is_null($item->position))
+                                                        Kosong
+                                                    @else
+                                                        {{ $item->position }}
+                                                    @endif
+                                                </td>
+                                                <td> {{ date('H:i:s d M, Y', strtotime($item->created_at)) }} </td>
+                                                <td>
+                                                    @if ($item->status == 'Aktif')
+                                                        <div class="badge badge-outline-success">{{ $item->status }}</div>
+                                                    @elseif($item->status == 'Non Aktif')
+                                                        <div class="badge badge-outline-warning">{{ $item->status }}</div>
+                                                    @elseif($item->status == 'Pending')
+                                                        <div class="badge badge-outline-primary">{{ $item->status }}</div>
+                                                    @else
+                                                        <div class="badge badge-outline-danger">{{ $item->status }}</div>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" align="center">Tidak ada Data</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
     </div>
 @endsection
 

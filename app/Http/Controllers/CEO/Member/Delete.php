@@ -21,10 +21,10 @@ class Delete extends Controller
     {
         $user = User::where('id', $request->uid)->where('acc_code', $request->acc_code)->first();
         $cv = cv::where('user_id', $user->id)->first();
-        if (Storage::exists($user->profile_img)) {
+        if ($user && Storage::exists($user->profile_img)) {
             Storage::delete($user->profile_img);
         }
-        if (Storage::exists($cv->cv_url)) {
+        if ($cv && Storage::exists($cv->cv_url)) {
             Storage::delete($cv->cv_url);
         }
         if ($user->delete()) {

@@ -26,6 +26,9 @@ class Dashboard extends Controller
                 'accNonActive' => User::where('role', '!=', 'CEO')->where('status', 'Non Aktif')->get(),
                 'acc5Latest' => User::where('role', '!=', 'CEO')->limit(5)->latest()->get(),
             ];
+        } else if (Auth::user()->role == 'Pengurus') {
+            $data['latestRegister'] = User::where('role', '!=', 'CEO')->where('role', '!=', 'Pengurus')->limit(5)->latest()->get();
+            $data['cv'] = cv::where('user_id', Auth::user()->id)->first();
         } else if (Auth::user()->role !== 'CEO') {
             $data['cv'] = cv::where('user_id', Auth::user()->id)->first();
         }

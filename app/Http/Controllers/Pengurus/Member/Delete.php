@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\CEO\Pengurus;
+namespace App\Http\Controllers\Pengurus\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\cv;
@@ -12,14 +12,14 @@ class Delete extends Controller
 {
     public function data(Request $request)
     {
-        return view('CEO.Pengurus.Ajax._delete', [
+        return view('Pengurus.Member.Ajax._delete', [
             'data' => User::where('acc_code', $request->acc_code)->first()
         ]);
     }
 
     public function confirm(Request $request)
     {
-        $user = User::where('id', $request->uid)->where('acc_code', $request->acc_code)->first();
+        $user = User::where('id', $request->uid)->where('acc_code', $request->acc_code)->where('role', 'Member')->first();
         $cv = cv::where('user_id', $user->id)->first();
         if ($user && Storage::exists($user->profile_img)) {
             Storage::delete($user->profile_img);

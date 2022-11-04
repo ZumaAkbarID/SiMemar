@@ -27,9 +27,29 @@ class CV extends Controller
         ]);
     }
 
+    public function single_view($acc_code)
+    {
+        $user = User::where('acc_code', $acc_code)->first();
+        if (!$user) {
+            $data['title'] = $this->SiMemarConfig->app_name . ' | CV';
+            $cv = [];
+        } else {
+            $data['title'] = $user->name . ' | CV';
+            $cv = ModelsCv::where('user_id', $user->id)->first();
+        }
+
+        return view('Profile.single_cv', [
+            'title' => $data['title'],
+            'user' => $user,
+            'cv' => $cv,
+            'SiMemarConfig' => $this->SiMemarConfig
+        ]);
+    }
+
     public function process(Request $request)
     {
         $cv = ModelsCv::where('user_id', Auth::user()->id)->first();
+
         $this->validate(
             $request,
             [
@@ -42,18 +62,28 @@ class CV extends Controller
             ]
         );
 
-        $oldPdf = $cv->cv_url;
+        if ($cv) {
+            $oldPdf = $cv->cv_url;
+        }
 
         $data['cv_url'] = $request->file('cv_url')->storeAs('profile/cv', Str::slug(Auth::user()->name) . '-' . time() . '.pdf');
 
-        if (Storage::exists($cv->cv_url) && !is_null($data['cv_url'])) {
+        if ($cv && Storage::exists($cv->cv_url) && !is_null($data['cv_url'])) {
             Storage::delete($cv->cv_url);
         }
 
-        if (ModelsCv::where('user_id', Auth::user()->id)->update($data)) {
-            return redirect()->back()->with('success', 'Berhasil upload pdf');
+        if ($cv) {
+            if (ModelsCv::where('user_id', Auth::user()->id)->update($data)) {
+                return redirect()->back()->with('success', 'Berhasil upload pdf');
+            } else {
+                return redirect()->back()->with('error', 'Gagal upload pdf');
+            }
         } else {
-            return redirect()->back()->with('error', 'Gagal upload pdf');
+            if (ModelsCv::create(['user_id' => Auth::user()->id, 'cv_url' => $data['cv_url']])) {
+                return redirect()->back()->with('success', 'Berhasil upload pdf');
+            } else {
+                return redirect()->back()->with('error', 'Gagal upload pdf');
+            }
         }
     }
 

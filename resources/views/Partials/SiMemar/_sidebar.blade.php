@@ -38,8 +38,8 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+        <li class="nav-item menu-items @if (Request::segment(2) == 'card') active @endif">
+            <a class="nav-link" href="{{ route('Account_card') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-account-card-details"></i>
                 </span>
@@ -95,25 +95,13 @@
             <li class="nav-item nav-category">
                 <span class="nav-link">Menu Pengurus</span>
             </li>
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-bs-toggle="collapse" href="#pengurus-account" aria-expanded="false"
-                    aria-controls="pengurus-account">
+            <li class="nav-item menu-items @if (Request::segment(1) == 'pengurus' && Request::segment(2) == 'member') active @endif">
+                <a class="nav-link" href="{{ route('Pengurus_member_all') }}">
                     <span class="menu-icon">
                         <i class="mdi mdi-folder-account"></i>
                     </span>
                     <span class="menu-title">Pengelola Akun</span>
-                    <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="pengurus-account">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/ui-features/buttons.html">Kelola Pendaftaran</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/ui-features/dropdowns.html">Kelola CV</a>
-                        </li>
-                    </ul>
-                </div>
             </li>
         @endif
     </ul>

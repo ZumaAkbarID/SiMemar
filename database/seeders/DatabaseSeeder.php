@@ -42,7 +42,10 @@ class DatabaseSeeder extends Seeder
 
         SiMemarConfig::factory()->create([
             'app_name' => 'SiMemar',
-            'favicon' => '/storage/default/favicon.ico',
+            'favicon' => 'default/favicon.ico',
+            'meta_desc' => 'Star this open source project on https://github.com/ZumaAkbarID',
+            'card_front_img' => 'default/card_front_img.png',
+            'card_back_img' => 'default/card_back_img.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

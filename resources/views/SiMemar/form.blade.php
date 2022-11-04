@@ -93,7 +93,7 @@
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control p_input" id="card_front_img"
                                         name="card_front_img" accept=".png,.jpg,.svg">
-                                    <div class="small">lebar max : 250, tinggi max : 100, max file : 2MB</div>
+                                    <div class="small">lebar max : 250, tinggi max : 140, max file : 2MB</div>
                                 </div>
                             </div>
                             @if (is_null($SiMemarConfig->card_back_img))
@@ -108,7 +108,7 @@
                                 <div class="col-sm-10">
                                     <input type="file" class="form-control p_input" id="card_back_img"
                                         name="card_back_img" accept=".png,.jpg,.svg">
-                                    <div class="small">lebar max : 250, tinggi max : 350, max file : 2MB</div>
+                                    <div class="small">lebar max : 250, tinggi max : 380, max file : 2MB</div>
                                 </div>
                             </div>
                             <div class="form-group">

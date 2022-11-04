@@ -59,6 +59,31 @@ Buka alamat local di browser.
 http://127.0.0.1:8000
 ```
 
+## Account
+
+CEO Role
+
+```bash
+- Default -
+Email : admin@rahmatwahyumaakbar.com
+Nomor HP : 081234567890
+Password : password
+```
+
+Pengurus Role
+
+```bash
+- Default -
+Tidak ada, akun pengurus role hanya bisa dibuat oleh CEO role, atau Member yang rolenya dirubah oleh CEO
+```
+
+Member Role
+
+```bash
+- Default -
+Tidak ada, akun member role hanya bisa melakukan pendaftaran melalui form Daftar
+```
+
 ## Lisensi
 
 MIT
