@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        SiMemarConfig::factory()->create([
+        SiMemarConfig::create([
             'app_name' => 'SiMemar',
             'favicon' => 'default/favicon.ico',
             'meta_desc' => 'Star this open source project on https://github.com/ZumaAkbarID',
